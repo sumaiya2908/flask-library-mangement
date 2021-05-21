@@ -1,0 +1,21 @@
+header {
+  background-color: #0d6efd;
+}
+.nav-link {
+  color: white;
+  margin-right: 10px;
+}
+.nav-link:hover {
+  color: rgb(224, 218, 238);
+}
+
+.mrbt-2{
+    margin-bottom: 2rem;
+}
+.text-center{
+  text-align: center;
+}
+
+.text-left{
+  text-align: left !important;
+}
