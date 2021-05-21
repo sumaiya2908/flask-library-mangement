@@ -64,3 +64,26 @@ def delete_member(member_id):
     db.session.delete(member)
     db.session.commit()
     return redirect(url_for('members_page'))
+
+
+@app.route('/update-book/<book_id>', methods=['GET','POST'])
+def update_book(book_id):
+    book = Book.query.filter_by(id=book_id).first()
+    newTitle = request.form.get("title")
+    newAuthor = request.form.get("author")
+    newIsbn = request.form.get("isbn")
+    newStock = request.form.get('stock')
+    try:
+        if(book.title is not newTitle):
+            book.title = newTitle
+        if(book.author is not newAuthor):
+            book.author = newAuthor
+        if(book.isbn is not newIsbn):
+            book.isbn = newIsbn
+        if(book.stock is not newStock):
+            book.stock = newStock 
+        db.session.commit()
+        flash("Updated Successfully!", category="success")
+    except:
+        flash("Failed to update", category="danger")
+    return redirect(url_for('books_page'))
