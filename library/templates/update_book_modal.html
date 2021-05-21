@@ -1,0 +1,34 @@
+<button type="button" class="btn btn-{{btn_mode}}" data-bs-toggle="modal" data-bs-target="#updateBookModal">
+    Update
+  </button>
+  <div class="modal fade" id="updateBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bookModalLabel">Update Book</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action = './update-book/{{book.id}}' method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.title.label() }}
+            {{ form.title(class="form-control", placeholder="Title",value= book.title) }}
+  
+            {{ form.isbn.label() }}
+            {{ form.isbn(class="form-control", placeholder="ISBN",value= book.isbn) }}
+  
+            {{ form.author.label() }}
+            {{ form.author(class="form-control", placeholder="Author",value= book.author) }}
+  
+            {{ form.stock.label() }}
+            {{ form.stock(class="form-control", placeholder="Stock", value = book.stock) }}
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          {{form.submit(class="btn btn-primary")}}
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>

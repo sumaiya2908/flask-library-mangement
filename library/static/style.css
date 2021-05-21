@@ -19,3 +19,31 @@ header {
 .text-left{
   text-align: left !important;
 }
+
+.m {
+  margin: 1rem 0 0 1rem;
+  position: relative;
+  left: 75%;
+}
+
+
+.table {
+  margin-top: 2rem;
+}
+.table-id{
+  padding-left: 2.5rem !important;
+}
+
+
+@media screen and (max-width: 600px) {
+  .m {
+      left: 55%;
+  }
+
+  .nav-link{
+      margin : 0;
+    }
+    .table-id{
+      padding-left: 10px !important ;
+  }
+}

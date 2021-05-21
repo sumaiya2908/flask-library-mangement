@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{%block title%} Members {%endblock%}
+{%block content%}
+{%with btn_mode = 'dark', btn = 'Create', title='Create Member', submit = 'Create', form =
+formM %}
+{%include 'add_member_modal.html'%}
+{%endwith%}
+{%with btn_mode = 'dark', btn = 'Borrow', title='Create Book', submit = 'Create', form =
+formM %}
+{%include 'add_member_modal.html'%}
+{%endwith%}
+{%with btn_mode = 'dark', btn = 'Return', title='Create Book', submit = 'Create', form =
+formM %}
+{%include 'add_member_modal.html'%}
+{%endwith%}
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col" class="table-id">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Membername</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr>
+            <th scope="row" class="table-id">{{member.id}}</th>
+            <td>{{member.name}}</td>
+            <td>{{member.member_name}}</td>
+            <td>{{member.phone_number}}</td>
+            <td class="action"> 
+                {% with id = member.id, q='member' %}
+                {%include 'delete_modal.html'%}
+                {%endwith%}
+                {%with btn_mode = 'primary', form = formM, member= member %}
+                    {%include 'update_member_modal.html'%}
+                {%endwith%}
+            </td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+{%endblock%}
