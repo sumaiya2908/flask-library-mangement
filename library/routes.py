@@ -27,8 +27,7 @@ def books_page():
         return redirect(url_for('books_page'))
     if formB.errors != {}:  # If there are not errors from the validations
         for err_msg in formB.errors.values():
-            flash(
-                f'There was an error with creating a book: {err_msg}', category='danger')
+            flash(f'There was an error with creating a book: {err_msg}', category='danger')
     return render_template('books.html', formB=formB, books=books)
 
 
@@ -45,24 +44,31 @@ def members_page():
         return redirect(url_for('members_page'))
     if formM.errors != {}:  # If there are not errors from the validations
         for err_msg in formM.errors.values():
-            flash(
-                f'There was an error with creating a Member: {err_msg}', category='danger')
+            flash(f'There was an error with creating a Member: {err_msg}', category='danger')
     return render_template('members.html', formM=formM, members=member)
 
 
 @app.route('/delete-book/<book_id>', methods=['POST'])
 def delete_book(book_id):
-    book = Book.query.filter_by(id=book_id).first()
-    db.session.delete(book)
-    db.session.commit()
+    try:
+        book = Book.query.filter_by(id=book_id).first()
+        db.session.delete(book)
+        db.session.commit()
+        flash("Deleted Successfully", category="success")
+    except:
+        flash("Error in deletion", category="danger")
     return redirect(url_for('books_page'))
 
 
 @app.route('/delete-member/<member_id>', methods=['POST'])
 def delete_member(member_id):
-    member = Member.query.filter_by(id=member_id).first()
-    db.session.delete(member)
-    db.session.commit()
+    try:
+        member = Member.query.filter_by(id=member_id).first()
+        db.session.delete(member)
+        db.session.commit()
+        flash("Deleted Successfully", category="success")
+    except:
+        flash("Error in deletion", category="danger")
     return redirect(url_for('members_page'))
 
 
