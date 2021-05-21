@@ -23,9 +23,11 @@ header {
 .m {
   margin: 1rem 0 0 1rem;
   position: relative;
-  left: 75%;
+  left: 60%;
 }
-
+.action {
+  width: 200px;
+}
 
 .table {
   margin-top: 2rem;
@@ -37,7 +39,7 @@ header {
 
 @media screen and (max-width: 600px) {
   .m {
-      left: 55%;
+      left: 25%;
   }
 
   .nav-link{
@@ -46,4 +48,11 @@ header {
     .table-id{
       padding-left: 10px !important ;
   }
+  .action {
+    width: 100px;
+}
+
+.action .btn {
+    margin-bottom: 10px;
+}
 }

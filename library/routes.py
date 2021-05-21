@@ -93,3 +93,23 @@ def update_book(book_id):
     except:
         flash("Failed to update", category="danger")
     return redirect(url_for('books_page'))
+
+
+@app.route('/import-from-frappe', methods=['GET','POST'])
+def import_frappe():
+    title = request.form.get('title')
+    imp_books=[]
+    url = f"https://frappe.io/api/method/frappe-library?page=1&title={title}"
+    imp_books =  requests.get(url).json()['message'] 
+    if len(imp_books)>0:
+        for book in imp_books:
+            book_to_create = Book(title=book['title'],  #add book to db
+                                isbn=(book['isbn']),
+                                author=book['authors'],
+                                stock=0)
+            db.session.add(book_to_create)
+            db.session.commit()
+        flash("succesfully Imported", category="success")
+    else:
+        flash("Not Returned", category="danger")
+    return redirect(url_for('books_page'))

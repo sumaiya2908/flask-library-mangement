@@ -1,0 +1,23 @@
+<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#importFrModal">
+    Import From Frappe 
+</button>
+<div class="modal fade" id="importFrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookModalLabel">Import Books</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="./import-from-frappe" method="POST">
+                    <label>Title</label><br/>
+                    <input type="text" name="title" placeholder="Title"/>
+            
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Import</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>

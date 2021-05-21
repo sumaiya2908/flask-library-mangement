@@ -10,6 +10,7 @@
 {%with btn_mode = 'dark',btn= 'Return', form = formB %}
 {%include 'add_book_modal.html'%}
 {%endwith%}
+{%include 'frappe-api.html'%}
 <table class="table">
     <thead class="table-dark">
         <tr>
@@ -36,6 +37,7 @@
                 {%with btn_mode = 'primary', form = formB, book = book %}
                     {%include 'update_book_modal.html'%}
                 {%endwith%}
+                
             </td>
         </tr>
     {%endfor%}
