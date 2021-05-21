@@ -9,7 +9,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action = './update-book/{{member.id}}' method="POST">
+          <form action = './update-member/{{member.id}}' method="POST">
             {{ form.hidden_tag() }}
             {{ form.name.label() }}
             {{ form.name(class="form-control", placeholder="Title",value= member.name) }}

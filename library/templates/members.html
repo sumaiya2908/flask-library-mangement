@@ -32,7 +32,7 @@ formM %}
             <td>{{member.member_name}}</td>
             <td>{{member.phone_number}}</td>
             <td class="action"> 
-                {% with id = member.id, q='member' %}
+                {% with id = member.id %}
                 {%include 'delete_modal.html'%}
                 {%endwith%}
                 {%with btn_mode = 'primary', form = formM, member= member %}

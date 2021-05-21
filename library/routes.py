@@ -95,6 +95,26 @@ def update_book(book_id):
     return redirect(url_for('books_page'))
 
 
+@app.route('/update-member/<member_id>', methods=['GET','POST'])
+def update_member(member_id):
+    member = Member.query.filter_by(id=member_id).first()
+    newName = request.form.get("name")
+    newNumber = request.form.get("phone_number")
+    newMember = request.form.get("member_name")
+    try:
+        if(member.name is not newName):
+            member.name = newName
+        if(member.phone_number is not newNumber):
+            member.phone_number = newNumber
+        if(member.member_name is not newMember):
+            member.member_name = newMember
+        db.session.commit()
+        flash("Updated Successfully!", category="success")
+    except:
+        flash("Failed to update", category="danger")
+    return redirect(url_for('members_page'))
+
+
 @app.route('/import-from-frappe', methods=['GET','POST'])
 def import_frappe():
     title = request.form.get('title')
