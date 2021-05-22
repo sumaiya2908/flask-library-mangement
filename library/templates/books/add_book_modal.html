@@ -1,0 +1,29 @@
+<div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookModalLabel">Create Book</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-left">
+                <form method="POST">
+
+                    {{ book_form.hidden_tag() }}
+                    {{ book_form.title.label() }}
+                    {{ book_form.title(class="form-control", placeholder="Title") }}
+                    {{ book_form.isbn.label() }}
+                    {{ book_form.isbn(class="form-control", placeholder="ISBN") }}
+                    {{ book_form.author.label() }}
+                    {{ book_form.author(class="form-control", placeholder="Author")}}
+                    {{ book_form.stock.label() }}
+                    {{ book_form.stock(class="form-control", placeholder="Stock")}}
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        {{book_form.submit(class="btn btn-primary")}}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

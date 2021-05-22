@@ -6,7 +6,7 @@ class Member(db.Model):
     name = db.Column(db.String(length=30), nullable=False)
     member_name = db.Column(db.String(length=30), nullable=False, unique=True)
     phone_number = db.Column(db.Integer())
-    feePaid = db.Column(db.Integer())
+    amount = db.Column(db.Integer())
     feeDebt = db.Column(db.Integer())
 
 class Book(db.Model):

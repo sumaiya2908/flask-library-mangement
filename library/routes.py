@@ -1,57 +1,69 @@
+import requests
+import json
+
 from library.forms import BookForm, DeleteForm, MemberForm
 from flask import render_template, redirect, url_for, flash, request
 from library import app, db
 from library.models import Member, Book
-import requests
-import json
 
+
+# Renders Home Page
 @app.route('/')
 @app.route('/home')
 def home_page():
-    form_b = BookForm()
-    form_m = MemberForm()
-    return render_template('home.html', form_b = form_b, form_m = form_m)
+    # Forms from flask forms
+    book_form = BookForm()
+    member_form = MemberForm()
+    return render_template('home.html', book_form = book_form, member_form = member_form)
 
 
+# Renders Books Page
 @app.route('/books', methods=['GET', 'POST'])
 def books_page():
-    formB = BookForm()
-    books = Book.query.all()  #books to read
-    if formB.validate_on_submit(): #if no error 
-        book_to_create = Book(title=formB.title.data,  #add book to db
-                              isbn=formB.isbn.data,
-                              author=formB.author.data,
-                              stock=formB.stock.data)
+    book_form = BookForm()
+    delete_form = DeleteForm()
+    books = Book.query.all()  # Read books from db
+    if book_form.validate_on_submit():  # if no error
+        # Create a book in db
+        book_to_create = Book(title = book_form.title.data,
+                              isbn = book_form.isbn.data,
+                              author = book_form.author.data,
+                              stock = book_form.stock.data)
         db.session.add(book_to_create)
         db.session.commit()
         return redirect(url_for('books_page'))
-    if formB.errors != {}:  # If there are not errors from the validations
-        for err_msg in formB.errors.values():
+    if book_form.errors != {}:  # If there are no errors from the validations
+        for err_msg in book_form.errors.values():
             flash(f'There was an error with creating a book: {err_msg}', category='danger')
-    return render_template('books.html', formB=formB, books=books)
+    return render_template('books/books.html', book_form=book_form, form = delete_form, books=books)
 
 
+# Renders Members Page
 @app.route('/members', methods=['GET', 'POST'])
 def members_page():
-    formM = MemberForm()
-    member = Member.query.all() #members to read
-    if formM.validate_on_submit():
-        member_to_create = Member(name=formM.name.data,     #add member to db
-                                  phone_number=formM.phone_number.data,
-                                  member_name=formM.member_name.data)
+    member_form = MemberForm()
+    member = Member.query.all()  # members to read
+    if member_form.validate_on_submit():
+        # Create a member in db
+        member_to_create = Member(name = member_form.name.data,  # add member to db
+                                  phone_number = member_form.phone_number.data,
+                                  member_name = member_form.member_name.data)
         db.session.add(member_to_create)
         db.session.commit()
         return redirect(url_for('members_page'))
-    if formM.errors != {}:  # If there are not errors from the validations
-        for err_msg in formM.errors.values():
-            flash(f'There was an error with creating a Member: {err_msg}', category='danger')
-    return render_template('members.html', formM=formM, members=member)
+    if member_form.errors != {}:  # If there are not errors from the validations
+        for err_msg in member_form.errors.values():
+            flash(f'There was an error with creating a Member: {err_msg}', category = 'danger')
+    return render_template('members/members.html', member_form=member_form, members=member)
 
 
-@app.route('/delete-book/<book_id>', methods=['POST'])
+#Delets a book
+@app.route('/delete-book/<book_id>', methods=['GET','POST'])
 def delete_book(book_id):
+    print(book_id)
     try:
-        book = Book.query.filter_by(id=book_id).first()
+        # finds a book
+        book = Book.query.get(book_id)
         db.session.delete(book)
         db.session.commit()
         flash("Deleted Successfully", category="success")
@@ -87,7 +99,7 @@ def update_book(book_id):
         if(book.isbn is not newIsbn):
             book.isbn = newIsbn
         if(book.stock is not newStock):
-            book.stock = newStock 
+            book.stock = newStock
         db.session.commit()
         flash("Updated Successfully!", category="success")
     except:
@@ -116,20 +128,56 @@ def update_member(member_id):
 
 
 @app.route('/import-from-frappe', methods=['GET','POST'])
-def import_frappe():
+def import_books_from_frappe():
     title = request.form.get('title')
-    imp_books=[]
+    books = []
     url = f"https://frappe.io/api/method/frappe-library?page=1&title={title}"
-    imp_books =  requests.get(url).json()['message'] 
-    if len(imp_books)>0:
-        for book in imp_books:
-            book_to_create = Book(title=book['title'],  #add book to db
-                                isbn=(book['isbn']),
-                                author=book['authors'],
-                                stock=0)
+    books = requests.get(url).json()['message']
+    if len(books) > 0:
+        for book in books:
+            book_to_create = Book(title=book['title'],  # add book to db
+                                  isbn=(book['isbn']),
+                                  author=book['authors'],
+                                  stock=0)
             db.session.add(book_to_create)
             db.session.commit()
         flash("succesfully Imported", category="success")
     else:
         flash("Not Returned", category="danger")
     return redirect(url_for('books_page'))
+
+# NOTES:
+
+# 1. REMOVE all CamelCase
+# 2. Give meaning ful names to functions, classes and variables
+# 3. CLEAN code: Indentation, commas etc.
+# 4. Download `autopep8`, `pylance` -> VSCode Extension
+# Separate `routes` into modules: `member`, `transaction` and `book`
+# 5. {% asdf %}
+# 6. {% block <kfs> %} # compared to {%block <kfs>%}
+        # .. (indentation)
+#    {% endbloc %}
+
+# Counting frequency of occurence (uses dictionary)
+
+# my_dict = {} # set() {1, 2, 3}
+# trans = []
+# for t in trans:
+#     if t.type == "borrow":
+#         my_dict[t.book_id] = my_dict.get(t.book_id, 0) + 1
+#         pass
+#     elif "return":
+#         pass
+
+# {'xyz': 1}
+# {'abc': 1, 'xyz': 1}
+# {'abc': 1, 'xyz': 2}
+# `key` in max --> documentation
+# Lambda
+# sorted([(1, 2, 3), (4, 5, 6)])
+# max, min, sorted, .sort
+
+# borrowed list => [t for t in borrow_transaction]
+# `Transactions` => filters: borrow, return, all
+# Sort: date (ASC/DESC), book name (lexiographical), user name (lexiographical)
+# Select<option>MEmber 1<options>

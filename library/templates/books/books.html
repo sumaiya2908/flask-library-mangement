@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Books
+{% endblock %}
+
+{% block content %}
+{% include 'books/add_book_modal.html' %}
+<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#bookModal">
+    Create
+</button>
+
+{% include 'frappe-api.html' %}
+
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col" class="table-id">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Author</th>
+                <th scope="col">Stock</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            {% include 'books/delete_book_modal.html' %}
+            {% include 'books/update_book_modal.html' %}
+                <tr>
+                    <th scope="row" class="table-id"> {{ book.id }}</th>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.stock }}</td>
+                    <td class="action">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{book.id}}">
+                            Delete
+                        </button>  
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateBookModal-{{book.id}}">
+                            Update
+                         </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

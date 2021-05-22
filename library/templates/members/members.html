@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Members {% endblock %}
+
+{% block content %}
+{% include 'members/add_member_modal.html' %}
+<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#memberModal">
+    Create
+</button>
+
+
+
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col" class="table-id">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Membername</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            {% include 'members/delete_member_modal.html' %}
+            {% include 'members/update_member_modal.html' %}
+            <tr>
+                <th scope="row" class="table-id">{{member.id}}</th>
+                <td>{{member.name}}</td>
+                <td>{{member.member_name}}</td>
+                <td>{{member.phone_number}}</td>
+                <td class="action"> 
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{member.id}}">
+                        Delete
+                    </button>
+
+                    <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#updateMemberModal-{{member.id}}">
+                        Update
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
