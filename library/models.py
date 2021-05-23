@@ -6,13 +6,29 @@ class Member(db.Model):
     name = db.Column(db.String(length=30), nullable=False)
     member_name = db.Column(db.String(length=30), nullable=False, unique=True)
     phone_number = db.Column(db.Integer())
-    amount = db.Column(db.Integer())
-    feeDebt = db.Column(db.Integer())
+    amount = db.Column(db.Integer(), default=0)
+    books = db.relationship('Book', backref='borrowed_member', lazy=True)
+    transactions = db.relationship('Transaction', backref='borrowed_member', lazy=True)
+
+
+    
 
 class Book(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(length=50), nullable=False)
     isbn = db.Column(db.String(length=15), nullable=False)
     author = db.Column(db.Integer(), nullable=False)
-    stock = db.Column(db.Integer(), default=0, nullable=False)
+    stock = db.Column(db.Integer(), default=0)
+    borrow_stock = db.Column(db.Integer(), default=0)
+    member = db.Column(db.Integer(), db.ForeignKey('member.id')) 
+    transactions = db.relationship('Transaction', backref='borrowed_book', lazy=True)
 
+
+class Transaction(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    book = db.Column(db.Integer(), db.ForeignKey('book.id'))
+    member = db.Column(db.Integer(), db.ForeignKey('member.id'))
+    type_of_transaction = db.Column(db.String(length=7), nullable=False)
+    date = db.Column(db.Date())
+    returned = db.Column(db.Boolean())
+    amount = db.Column(db.Integer())
