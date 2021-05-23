@@ -10,7 +10,7 @@ from datetime import date
 from library.forms import book_form, return_book_form, borrow_book_form
 from flask import render_template, redirect, url_for, flash, request
 from library.models import Book, Member, Transaction
-from sqlalchemy import and_
+from sqlalchemy import and_, or_
 
 
 # Renders Home Page
@@ -84,8 +84,8 @@ def update_book(book_id):
         if(book.isbn is not newIsbn):
             book.isbn = newIsbn
         if(book.stock is not newStock):
-            book.stock = newStock
-            book.borrow_stock = newStock
+            book.stock = book.stock + newStock
+            book.borrow_stock = book.borrow_stock + newStock
 
         db.session.commit()
         flash("Updated Successfully!", category="success")
@@ -95,6 +95,15 @@ def update_book(book_id):
 
     return redirect(url_for('books_page'))
 
+
+
+@app.route('/search', methods=['POST'])
+def search_book():
+    query = request.form.get("query")
+    books = Book.query.filter(or_(Book.title == query, Book.author == query)).all()
+    print(books)
+
+    return render_template('books/search_page.html', books=books, length=len(books) )
 
 # imports books from Frappe API with given title
 @app.route('/import-from-frappe', methods=['GET','POST'])
@@ -116,7 +125,7 @@ def import_books_from_frappe():
                 book_to_create = Book(title=book['title'], 
                                   isbn=(book['isbn']),
                                   author=book['authors'],
-                                  stock=1,
+                                  stock=20,
                                   borrow_stock=1)
                 db.session.add(book_to_create)
                 db.session.commit()
@@ -206,6 +215,7 @@ def update_member(member_id):
 
 # -------------------------------------Transaction Routes------------------------------
 
+# Renders transaction page
 @app.route('/transactions')
 def transactions_page():
     transaction = Transaction.query.all()

@@ -9,10 +9,13 @@
                 <form method="POST">
 
                     {{ member_form.hidden_tag() }}
+
                     {{ member_form.name.label() }}
                     {{ member_form.name(class="form-control", placeholder="Name") }}
+
                     {{ member_form.phone_number.label() }}
                     {{ member_form.phone_number(class="form-control", placeholder="Phone Number") }}
+                    
                     {{ member_form.member_name.label() }}
                     {{ member_form.member_name(class="form-control", placeholder="Membername(unique)") }}
 

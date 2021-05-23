@@ -1,43 +1,44 @@
 {% extends 'base.html' %}
 
-{% block title %} Home {% endblock %}
+{% block title %}
+    Home
+{% endblock %}
 
 {% block style %}
-  <style type="text/css">
-    .m {
-      position: inherit;
-    }
-  </style>
+    <style type="text/css">
+        .m {
+            position: inherit;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
- {% include 'books/add_book_modal.html' %}
- {% include 'members/add_member_modal.html' %}
- {% include 'transactions/borrow_book_modal.html' %}
- {% include 'transactions/return_book_modal.html' %}
-  <div class="bg-dark text-secondary px-4 py-5 text-center">
-    <div class="py-5">
-      <h1 class="display-5 fw-bold text-white mrbt-2">
-        Welcome to Online Library Management
-      </h1>
-      <div class="col-lg-6 mx-auto">
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <button type="button" class="btn btn-primary m" data-bs-toggle="modal" data-bs-target="#bookModal">
-            Create Book
-        </button>
-        <button type="button" class="btn btn-primary m" data-bs-toggle="modal" data-bs-target="#memberModal">
-          Create Member
-      </button>
-      <button type="button" class="btn btn-primary m" data-bs-toggle="modal" data-bs-target="#borrowBookModal">
-        Borrow
-    </button>
-    <button type="button" class="btn btn-primary m" data-bs-toggle="modal" data-bs-target="#returnBookModal">
-      Return
-  </button>
-      
+  {% include 'books/add_book_modal.html' %}
+  {% include 'members/add_member_modal.html' %}
+  {% include 'transactions/borrow_book_modal.html' %}
+  {% include 'transactions/return_book_modal.html' %}
 
-        </div>
+  <div class="bg-dark text-secondary px-4 py-5 text-center">
+      <div class="py-5">
+          <h1 class="display-5 fw-bold text-white mrbt-2">
+              Welcome to Online Library Management
+          </h1>
+          <div class="col-lg-6 mx-auto">
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                  <button type="button" class="btn btn-primary m" data-bs-toggle="modal" data-bs-target="#bookModal">
+                      Create Book
+                  </button>
+                  <button type="button" class="btn btn-primary m" data-bs-toggle="modal" data-bs-target="#memberModal">
+                      Create Member
+                  </button>
+                  <button type="button" class="btn btn-primary m" data-bs-toggle="modal" data-bs-target="#borrowBookModal">
+                      Borrow
+                  </button>
+                  <button type="button" class="btn btn-primary m" data-bs-toggle="modal" data-bs-target="#returnBookModal">
+                      Return
+                  </button>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
 {%endblock%}

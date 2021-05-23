@@ -1,49 +1,52 @@
 {% extends 'base.html' %}
 
-{% block title %} Transactions {% endblock %}
+{% block title %}
+    Transactions
+{% endblock %}
 
 {% block content %}
 
+    {% include 'transactions/borrow_book_modal.html' %}
+    {% include 'transactions/return_book_modal.html' %}
 
-{% include 'transactions/borrow_book_modal.html' %}
-{% include 'transactions/return_book_modal.html' %}
-<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#borrowBookModal">
-    Borrow
-</button>
-<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#returnBookModal">
-    Return
-</button>
-{% if  length > 0 %}
+    <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#borrowBookModal">
+        Borrow
+    </button>
+    <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#returnBookModal">
+        Return
+    </button>
+    {% if  length > 0 %}
 
 
-    <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th scope="col" class="table-id">Transaction ID</th>
-                <th scope ="col">Book ID</th>
-                <th scope="col">Book Name</th>
-                <th scope="col">Member Name</th>
-                <th scope="col">Type of Transaction</th>
-                <th scope="col">Date</th>
-                <th scope="col">Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for transaction in transactions %}
+        <table class="table">
+            <thead class="table-dark">
                 <tr>
-                    <th scope="row" class="table-id"> {{ transaction.id }}</th>
-                    <td>{{ transaction.book }}</td>
-                    <td>{{ transaction.book_name}}</td>
-                    <td>{{ transaction.member }}</td>
-                    <td>{{transaction.type_of_transaction }}</td>
-                    <td>{{ transaction.date }}</td>
-                    <td>{{ transaction.amount}}</td>
+                    <th scope="col" class="table-id">Transaction ID</th>
+                    <th scope="col">Book ID</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Member Name</th>
+                    <th scope="col">Type of Transaction</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                    <tr>
+                        <th scope="row" class="table-id">
+                            {{ transaction.id }}</th>
+                        <td>{{ transaction.book }}</td>
+                        <td>{{ transaction.book_name}}</td>
+                        <td>{{ transaction.member }}</td>
+                        <td>{{ transaction.type_of_transaction }}</td>
+                        <td>{{ transaction.date }}</td>
+                        <td>{{ transaction.amount}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-{% else %}
- <div class="text-center empty-text">No transaction Available</div>
- {% endif %}
+    {% else %}
+        <div class="text-center empty-text">No transaction Available</div>
+    {% endif %}
 {% endblock %}

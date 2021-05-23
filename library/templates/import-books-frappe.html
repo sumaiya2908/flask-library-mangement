@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#importFrModal">
-    Import From Frappe 
+    Import From Frappe
 </button>
 <div class="modal fade" id="importFrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -10,14 +10,15 @@
             </div>
             <div class="modal-body">
                 <form action="./import-from-frappe" method="POST">
+                    
                     <label>Title</label><br/>
                     <input type="text" name="title" placeholder="Title"/>
-            
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Import</button>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
             </div>
-            </form>
-        </div>
         </div>
     </div>
 </div>

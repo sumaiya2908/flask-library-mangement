@@ -1,25 +1,25 @@
 <div class="modal fade" id="borrowBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="bookModalLabel">Borrow Book</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookModalLabel">Borrow Book</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action='./borrow-book' method="POST">
+                    {{ borrow_form.hidden_tag() }}
+                    {{ borrow_form.book_name.label() }}
+                    {{ borrow_form.book_name(class="form-control", placeholder="Book Title")}}
+
+                    {{ borrow_form.member_name.label() }}
+                    {{ borrow_form.member_name(class="form-control", placeholder="Membername")}}
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        {{borrow_form.borrow(class="btn btn-primary")}}
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-          <form action = './borrow-book' method="POST">
-            {{ borrow_form.hidden_tag() }}
-            {{ borrow_form.book_name.label() }}
-            {{ borrow_form.book_name(class="form-control", placeholder="Book Title")}}
-  
-            {{ borrow_form.member_name.label() }}
-            {{ borrow_form.member_name(class="form-control", placeholder="Membername")}}
-  
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          {{borrow_form.borrow(class="btn btn-primary")}}
-        </div>
-      </form>
-      </div>
     </div>
-  </div>
+</div>
