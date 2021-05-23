@@ -3,6 +3,16 @@
 {% block title %} Transactions {% endblock %}
 
 {% block content %}
+
+
+{% include 'transactions/borrow_book_modal.html' %}
+{% include 'transactions/return_book_modal.html' %}
+<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#borrowBookModal">
+    Borrow
+</button>
+<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#returnBookModal">
+    Return
+</button>
 {% if  length > 0 %}
 
 
@@ -13,7 +23,7 @@
                 <th scope ="col">Book ID</th>
                 <th scope="col">Book Name</th>
                 <th scope="col">Member Name</th>
-                <th scope="col">Type</th>
+                <th scope="col">Type of Transaction</th>
                 <th scope="col">Date</th>
                 <th scope="col">Amount</th>
             </tr>

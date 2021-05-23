@@ -6,7 +6,6 @@ class Member(db.Model):
     member_name = db.Column(db.String(length=30), nullable=False, unique=True)
     phone_number = db.Column(db.Integer())
     amount = db.Column(db.Integer(), default=0)
-    books = db.relationship('Book', backref='borrowed_member', lazy=True)
     transactions = db.relationship('Transaction', backref='borrowed_member', lazy=True)
 
 
@@ -19,7 +18,7 @@ class Book(db.Model):
     author = db.Column(db.Integer(), nullable=False)
     stock = db.Column(db.Integer(), default=0)
     borrow_stock = db.Column(db.Integer(), default=0)
-    member = db.Column(db.Integer(), db.ForeignKey('member.id')) 
+    member = db.Column(db.Integer(), default = 0) 
     transactions = db.relationship('Transaction', backref='borrowed_book', lazy=True)
 
 
@@ -30,5 +29,5 @@ class Transaction(db.Model):
     member = db.Column(db.Integer(), db.ForeignKey('member.id'))
     type_of_transaction = db.Column(db.String(length=7), nullable=False)
     date = db.Column(db.Date())
-    returned = db.Column(db.Boolean())
+    returned = db.Column(db.Boolean(), default = False)
     amount = db.Column(db.Integer())
