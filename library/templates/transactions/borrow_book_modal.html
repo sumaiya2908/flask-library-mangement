@@ -1,4 +1,4 @@
-<div class="modal fade" id="borrowBookModal-{{id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="borrowBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -7,12 +7,12 @@
         </div>
         <div class="modal-body">
           <form action = './borrow-book' method="POST">
-            {{ book_form.hidden_tag() }}
-            {{ borrow_form.title.label() }}
-            {{ borrow_form.title(class="form-control", placeholder="Membername"}}
+            {{ borrow_form.hidden_tag() }}
+            {{ borrow_form.book_name.label() }}
+            {{ borrow_form.book_name(class="form-control", placeholder="Book Title")}}
   
-            {{ borrow_form.isbn.label() }}
-            {{ borrow_form.isbn(class="form-control", placeholder="Book Title"}}
+            {{ borrow_form.member_name.label() }}
+            {{ borrow_form.member_name(class="form-control", placeholder="Membername")}}
   
         </div>
         <div class="modal-footer">

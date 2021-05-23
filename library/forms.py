@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from werkzeug.utils import validate_arguments
 from wtforms import StringField, IntegerField, SubmitField
 from wtforms.validators import Length, DataRequired, ValidationError
 from library.models import Member, Book
@@ -35,14 +36,11 @@ class member_form(FlaskForm):
 class book_form(FlaskForm):
 
     def validate(self):
-        book_list = db.session.query(Book.title).all()
-        book_list = list(map(' '.join, book_list))
-        author_list = db.session.query(Book.author).all()
-        author_list = list(map(' '.join, author_list))
         if not super(book_form, self).validate():
                 return False
-
-        if self.title.data in book_list and self.author.data in author_list:
+        book = Book.query.filter_by(title = self.title.data)
+        author = Book.query.filter_by(author = self.author.date)
+        if book and author:
             msg = 'Book already exists'
             self.title.errors.append(msg)
             self.author.errors.append(msg)
@@ -67,9 +65,37 @@ class delete_form(FlaskForm):
 
 
 class borrow_book_form(FlaskForm):
+
+    def validate(self):
+        book = Book.query.filter_by(title = self.book_name.data).first()
+        member = Member.query.filter_by(member_name = self.member_name.data).first()
+        if not super(borrow_book_form, self).validate():
+                return False
+                
+        if  book is None:
+            msg = "Book Doesnot Exist"
+            self.book_name.errors.append(msg)
+            return False
+        if book.borrow_stock == 0:
+            msg = "No stock"
+            self.book_name.errors.append(msg)
+            return False
+        if member is None:
+            msg = "Member Doesnot Exist"
+            self.member_name.errors.append(msg)
+            return False
+        if member.amount < -500:
+            msg = "The customer has overdue rent of 500"
+            self.member_name.errors.append(msg)
+            return False
+        else:
+            return True
     member_name = StringField(label="Member Name", validators=[DataRequired()])
     book_name = StringField(label="Book Name", validators=[DataRequired()])
     borrow = SubmitField(label="Borrow")
+
+
+
 class return_book_form(FlaskForm):
     member_name = StringField(label="Member Name", validators=[DataRequired()])
     book_name = StringField(label="Book Name", validators=[DataRequired()])

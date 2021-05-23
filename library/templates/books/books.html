@@ -6,11 +6,22 @@
 
 {% block content %}
 {% include 'books/add_book_modal.html' %}
+{% include 'transactions/borrow_book_modal.html' %}
+{% include 'transactions/return_book_modal.html' %}
 <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#bookModal">
     Create
 </button>
+<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#borrowBookModal">
+    Borrow
+</button>
+<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#returnBookModal">
+    Return
+</button>
 
 {% include 'frappe-api.html' %}
+
+{% if  length > 0 %}
+
 
     <table class="table">
         <thead class="table-dark">
@@ -45,4 +56,8 @@
             {% endfor %}
         </tbody>
     </table>
+
+{% else %}
+ <div class="text-center empty-text">No book Available</div>
+ {% endif %}
 {% endblock %}

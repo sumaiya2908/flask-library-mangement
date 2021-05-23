@@ -4,12 +4,21 @@
 
 {% block content %}
 {% include 'members/add_member_modal.html' %}
+{% include 'transactions/borrow_book_modal.html' %}
+{% include 'transactions/return_book_modal.html' %}
 <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#memberModal">
     Create
+</button>
+<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#borrowBookModal">
+    Borrow
+</button>
+<button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#returnBookModal">
+    Return
 </button>
 
 
 
+{% if length > 0 %}
     <table class="table">
         <thead class="table-dark">
             <tr>
@@ -17,6 +26,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Membername</th>
                 <th scope="col">Phone Number</th>
+                <th scope="col">Amount</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -29,6 +39,7 @@
                 <td>{{member.name}}</td>
                 <td>{{member.member_name}}</td>
                 <td>{{member.phone_number}}</td>
+                <td>{{member.amount}}</td>
                 <td class="action"> 
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{member.id}}">
                         Delete
@@ -42,4 +53,8 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <div class="text-center empty-text">No member available</div>
+    {% endif %}
+
 {% endblock %}

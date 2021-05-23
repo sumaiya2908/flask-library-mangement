@@ -1,5 +1,4 @@
 from library import db
-from sqlalchemy.orm import relationship
 
 class Member(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
@@ -27,6 +26,7 @@ class Book(db.Model):
 class Transaction(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     book = db.Column(db.Integer(), db.ForeignKey('book.id'))
+    book_name = db.Column(db.String())
     member = db.Column(db.Integer(), db.ForeignKey('member.id'))
     type_of_transaction = db.Column(db.String(length=7), nullable=False)
     date = db.Column(db.Date())

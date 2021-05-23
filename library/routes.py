@@ -12,7 +12,7 @@ from library.models import Member, Book, Transaction
 @app.route('/')
 @app.route('/home')
 def home_page():
-    return render_template('home.html', book_form = book_form(), member_form = member_form())
+    return render_template('home.html', book_form = book_form(), member_form = member_form(), borrow_form = borrow_book_form())
 
 
 # Renders Books Page
@@ -36,7 +36,7 @@ def books_page():
         for err_msg in form_book.errors.values():
             flash(f'There was an error with creating a book: {err_msg}', category='danger')
     
-    return render_template('books/books.html', book_form=book_form(), form = delete_form(), books=books)
+    return render_template('books/books.html', book_form=book_form(), form = delete_form(), books=books, length = len(books), borrow_form = borrow_book_form())
 
 
 # Renders Members Page
@@ -57,20 +57,19 @@ def members_page():
     if form_member.errors != {}: # If there are not errors from the validations
         for err_msg in form_member.errors.values():
             flash(f'There was an error with creating a Member: {err_msg}', category = 'danger')
-    return render_template('members/members.html', member_form=member_form(), members=member)
+    return render_template('members/members.html', member_form=member_form(), members=member, length = len(member), borrow_form = borrow_book_form())
 
 
 
 @app.route('/transactions')
 def transactions_page():
     transaction = Transaction.query.all()
-    return render_template('transactions/transactions.html', transactions=transaction)
+    return render_template('transactions/transactions.html', transactions=transaction, length=len(transaction))
 
 
 #Delets a book
 @app.route('/delete-book/<book_id>', methods=['GET','POST'])
 def delete_book(book_id):
-    print(book_id)
     try:
         # finds a book
         book = Book.query.get(book_id)
@@ -158,26 +157,34 @@ def import_books_from_frappe():
                                   borrow_stock=0)
                 db.session.add(book_to_create)
                 db.session.commit()
-                flash("succesfully Imported", category="success")
-
+           
             else:
-                continue
+                    continue
+        flash("succesfully Imported", category="success")
     else:
         flash("No response from the API", category="danger")
     return redirect(url_for('books_page'))
 
 
+
+
+
+
+
 @app.route('/borrow-book', methods=['POST'])
 def borrow_book():
-    member_requested = borrow_book_form().member_name.data()
-    book_requested = borrow_book_form().book_name.data()
-    if borrow_book_form().validate_on_submit():
-        book = Book.query.get(book_requested)
-        member = Member.query.get(member_requested)
+    member_requested = borrow_book_form().member_name.data
+    book_requested = borrow_book_form().book_name.data
+    borrow_form = borrow_book_form()
+    if borrow_form.validate_on_submit():
+        book = Book.query.filter_by(title = book_requested).first()
+        member = Member.query.filter_by(member_name = member_requested).first()
         member.amount = member.amount - 30
+        print(member.amount)
         book.borrow_stock = book.borrow_stock - 1
-        book. member = member.id
-        borrow_book = Transaction(book = book.title,
+        book.member = member.id
+        borrow_book = Transaction(book = book.id,
+                                  book_name = book.title,
                                   member = member.member_name,
                                   type_of_transaction = "borrow",
                                   returned = False,
@@ -185,10 +192,10 @@ def borrow_book():
         db.session.add(borrow_book)
         db.session.commit()
         flash(f"Issued book to {member_requested}", category='success')
-    if borrow_book_form().errors != {}:  # If there are not errors from the validations
-        for err_msg in borrow_book_form().errors.values():
+    if borrow_form.errors != {}:  # If there are not errors from the validations
+        for err_msg in borrow_form.errors.values():
             flash(f'There was an error with borrowing book: {err_msg}', category = 'danger')
-    return redirect(url_for('transactions_page'))
+    return redirect(request.referrer)
 
 
 @app.route('/return-book', methods=['POST'])

@@ -36,6 +36,11 @@ header {
   padding-left: 2.5rem !important;
 }
 
+.empty-text{
+  margin-top: 2rem;
+  font-size: 2rem; 
+  font-weight: 700;
+}
 
 @media screen and (max-width: 600px) {
   .m {
