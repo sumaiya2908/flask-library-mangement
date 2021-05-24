@@ -29,19 +29,10 @@ class member_form(FlaskForm):
 
 # form for creating and updating books
 class book_form(FlaskForm):
-
-
-    def validate(self):
-        book = Book.query.filter_by(title = self.title.data)
-        if not super(book_form, self).validate():
-                return False
-       
+    def validate_title(self, title_to_check):
+        book = Book.query.filter_by(title=title_to_check.data).first()
         if book:
-            msg = 'Book already exists'
-            self.title.errors.append(msg)
-
-            return False
-
+            raise ValidationError('Book already exists')
 
     title = StringField(label='Title', validators=[ DataRequired()])
     isbn = StringField(label='ISBN', validators=[DataRequired()])
@@ -73,7 +64,7 @@ class borrow_book_form(FlaskForm):
             msg = "Member Doesnot Exist"
             self.member_name.errors.append(msg)
             return False
-        if member.amount >= 500:
+        if member.to_pay >= 500:
             msg = "The customer has overdue rent of 500"
             self.member_name.errors.append(msg)
             return False
@@ -98,7 +89,7 @@ class return_book_form(FlaskForm):
                                                       Transaction.returned == False,
                                                       Transaction.book_name == book,
         
-                                                      Transaction.member == member)).all()
+                                                      Transaction.member_name == member)).all()
         if not super(return_book_form, self).validate():
                 return False
 

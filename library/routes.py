@@ -27,12 +27,11 @@ def home_page():
 @app.route('/books', methods=['GET','POST'])
 def books_page():
     # reads books from db
-    books = Book.query.all()
+    books = Book.query.order_by('id').all()
     form_book = book_form() 
-
     # if no validation error while creating book
     if form_book.validate_on_submit():  
-        book_to_create = Book(title = book_form().title.data,
+        book_to_create = Book(title = book_form().title. data,
                               isbn = book_form().isbn.data,
                               author = book_form().author.data,
                               stock = book_form().stock.data,
@@ -84,14 +83,13 @@ def update_book(book_id):
         if(book.isbn is not newIsbn):
             book.isbn = newIsbn
         if(book.stock is not newStock):
-            book.stock = book.stock + newStock
-            book.borrow_stock = book.borrow_stock + newStock
-
+            book.stock =  int(newStock)
+            book.borrow_stock = int(newStock)
         db.session.commit()
-        flash("Updated Successfully!", category="success")
+        flash("updated sucessfully", category="success")
 
     except:
-        flash("Failed to update", category="danger")
+        flash("Nothing to update!", category="warning")
 
     return redirect(url_for('books_page'))
 
@@ -147,7 +145,7 @@ def import_books_from_frappe():
 @app.route('/members', methods=['GET', 'POST'])
 def members_page():
     # read members from db
-    member = Member.query.all() 
+    member = Member.query.order_by('id').all() 
 
     form_member = member_form() 
 
@@ -218,7 +216,7 @@ def update_member(member_id):
 # Renders transaction page
 @app.route('/transactions')
 def transactions_page():
-    transaction = Transaction.query.all()
+    transaction = Transaction.query.order_by('id').all()
     return render_template('transactions/transactions.html', transactions=transaction, length=len(transaction), borrow_form = borrow_book_form(), return_form = return_book_form())
 
 
@@ -230,12 +228,13 @@ def borrow_book():
     if borrow_form.validate_on_submit():
         book = Book.query.filter_by(title = book_requested).first()
         member = Member.query.filter_by(member_name = member_requested).first()
-        member.amount = member.amount + 30
+        member.to_pay = member.to_pay + 30
         book.borrow_stock = book.borrow_stock - 1
         book.member = book.member + 1
         borrow_book = Transaction(book = book.id,
                                   book_name = book.title,
-                                  member = member.member_name,
+                                  member = member.id,
+                                  member_name = member.member_name,
                                   type_of_transaction = "borrow",
                                   returned = False,
                                   amount = 0,
@@ -262,7 +261,7 @@ def return_book():
                                                       Transaction.member == member_requested)).first()
         book = Book.query.filter_by(title = book_requested).first()
         member = Member.query.filter_by(member_name = member_requested).first()
-        member.amount = member.amount - paid
+        member.to_pay = member.to_pay - paid
         book.borrow_stock = book.borrow_stock + 1
         borrowed_book.returned = True
         return_book = Transaction(book = book.id,

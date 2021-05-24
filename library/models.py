@@ -27,6 +27,7 @@ class Transaction(db.Model):
     book = db.Column(db.Integer(), db.ForeignKey('book.id'))
     book_name = db.Column(db.String())
     member = db.Column(db.Integer(), db.ForeignKey('member.id'))
+    member_name = db.Column(db.String())
     type_of_transaction = db.Column(db.String(length=7), nullable=False)
     date = db.Column(db.Date())
     returned = db.Column(db.Boolean(), default = False)
