@@ -15,7 +15,7 @@ class Book(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(length=50), nullable=False)
     isbn = db.Column(db.String(length=15), nullable=False)
-    author = db.Column(db.Integer(), nullable=False)
+    author = db.Column(db.String(), nullable=False)
     stock = db.Column(db.Integer(), default=0)
     borrow_stock = db.Column(db.Integer(), default=0)
     member = db.Column(db.Integer(), default = 0) 
@@ -32,7 +32,3 @@ class Transaction(db.Model):
     returned = db.Column(db.Boolean(), default = False)
     amount = db.Column(db.Integer())
 
-
-class ModelEncoder(JSONEncoder):
-        def default(self, o):
-            return o.__dict__
