@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Reports
+{% endblock %}
+
+{% block content %}
+
+
+    <canvas id="book-line-chart" width="600" height="400"></canvas>
+    <canvas id="member-line-chart" width="500" height="300"></canvas>
+
+
+{% endblock %}
+{% block script %}
+    <script>
+
+        labels = JSON.parse({{ labels | tojson }})
+        data = JSON.parse({{ data | tojson }})
+        new Chart(document.getElementById("book-line-chart"), {
+            "type": "bar",
+            "data":
+            // using the labels here.
+            {
+                "labels": labels,
+
+                "datasets": [
+                    {
+                        "label": "Books",
+
+                        "data": data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+
+
+                        borderWidth: 1
+                    }
+                ]
+            },
+            "options": {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+        labels = JSON.parse({{ labels | tojson }})
+        data = JSON.parse({{ data | tojson }})
+        new Chart(document.getElementById("member-line-chart"), {
+            "type": "bar",
+            "data":
+            // using the labels here.
+            {
+                "labels": labels,
+
+                "datasets": [
+                    {
+                        "label": "members",
+
+                        "data": data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+
+
+                        borderWidth: 1
+                    }
+                ]
+            },
+            "options": {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+{% endblock %}

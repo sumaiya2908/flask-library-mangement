@@ -1,5 +1,5 @@
 from library import db
-
+from json import JSONEncoder
 class Member(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(length=30), nullable=False)
@@ -31,3 +31,8 @@ class Transaction(db.Model):
     date = db.Column(db.Date())
     returned = db.Column(db.Boolean(), default = False)
     amount = db.Column(db.Integer())
+
+
+class ModelEncoder(JSONEncoder):
+        def default(self, o):
+            return o.__dict__

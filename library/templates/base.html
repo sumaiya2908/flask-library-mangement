@@ -9,7 +9,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.1/chart.min.js'></script>
   <title>{%block title %} {%endblock%}</title>
   {%block style%}
   {%endblock%}
@@ -25,7 +26,7 @@
           <li><a href="{{url_for('books_page')}}" class="nav-link px-2 link-dark">Book List</a></li>
           <li><a href="{{url_for('members_page')}}" class="nav-link px-2 link-dark">Member List</a></li>
           <li><a href="{{url_for('transactions_page')}}" class="nav-link px-2 link-dark">Transactions</a></li>
-          <li><a href="/" class="nav-link px-2 link-dark">Report</a></li>
+          <li><a href="/reports" class="nav-link px-2 link-dark">Report</a></li>
         </ul>
 
         <form action= "./search" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="POST">
@@ -46,13 +47,16 @@
     {% endif %}
   {% endwith %}
   {%block content%}
-  {%endblock%}
+ 
+  {% endblock %}
 
   <script src="{{ url_for('static', filename='app.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
     crossorigin="anonymous"></script>
 
-</body>
+  {% block script %}
+  {% endblock %}
 
+</body>
 </html>

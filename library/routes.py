@@ -8,9 +8,9 @@ import json
 
 from datetime import date
 from library.forms import book_form, return_book_form, borrow_book_form
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, jsonify
 from library.models import Book, Member, Transaction
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, or_, desc
 
 
 # Renders Home Page
@@ -281,6 +281,20 @@ def return_book():
     return redirect(url_for('transactions_page'))
 
 
+class Object:
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4)
+            
+@app.route('/reports') 
+def report_page():
+  books = Book.query.all()
+  members = Book.query.all()
+  books_pop = []
+  popular_books = Book.query.order_by(desc(Book.member)).limit(10).all()
+  data = json.dumps( [1.0,2.0,3.0, 0.8, 0.7, 0.4] )
+  labels=json.dumps( ["12-31-18", "01-01-19", "01-02-19","12-31-18", "01-01-19", "01-02-19"] )
+  return render_template("reports.html", labels = labels, data = data)
 
 
 
@@ -288,17 +302,9 @@ def return_book():
 
 
 
-# NOTES:
 
-# 1. REMOVE all CamelCase
-# 2. Give meaning ful names to functions, classes and variables
-# 3. CLEAN code: Indentation, commas etc.
-# 4. Download `autopep8`, `pylance` -> VSCode Extension
-# Separate `routes` into modules: `member`, `transaction` and `book`
-# 5. {% asdf %}
-# 6. {% block <kfs> %} # compared to {%block <kfs>%}
-        # .. (indentation)
-#    {% endbloc %}
+
+
 
 # Counting frequency of occurence (uses dictionary)
 
