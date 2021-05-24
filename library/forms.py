@@ -7,14 +7,14 @@ from sqlalchemy import and_
 # form for creating and updating members
 class member_form(FlaskForm):
 
-    check if unique memberName already exists
+    # check if unique memberName already exists
     def validate_member_name(self, member_name_to_check):
         member = Member.query.filter_by(member_name=member_name_to_check.data).first()
         if member:
             raise ValidationError('Username already exists! Please try a different Member Name')
 
     
-    check if phone number already exists
+    # check if phone number already exists
     def validate_phone_number(self, phone_number_to_check):
         phone = Member.query.filter_by(phone_number=phone_number_to_check.data).first()
         if phone: 
