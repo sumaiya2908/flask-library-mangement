@@ -78,7 +78,7 @@ class borrow_book_form(FlaskForm):
             msg = "Member Doesnot Exist"
             self.member_name.errors.append(msg)
             return False
-        if member.amount < -500:
+        if member.amount >= 500:
             msg = "The customer has overdue rent of 500"
             self.member_name.errors.append(msg)
             return False

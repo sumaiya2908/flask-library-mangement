@@ -230,8 +230,7 @@ def borrow_book():
     if borrow_form.validate_on_submit():
         book = Book.query.filter_by(title = book_requested).first()
         member = Member.query.filter_by(member_name = member_requested).first()
-        member.amount = member.amount - 30
-        print(member.amount)
+        member.amount = member.amount + 30
         book.borrow_stock = book.borrow_stock - 1
         book.member = book.member + 1
         borrow_book = Transaction(book = book.id,
@@ -263,7 +262,7 @@ def return_book():
                                                       Transaction.member == member_requested)).first()
         book = Book.query.filter_by(title = book_requested).first()
         member = Member.query.filter_by(member_name = member_requested).first()
-        member.amount = member.amount + paid
+        member.amount = member.amount - paid
         book.borrow_stock = book.borrow_stock + 1
         borrowed_book.returned = True
         return_book = Transaction(book = book.id,
