@@ -35,7 +35,7 @@ class book_form(FlaskForm):
         if not super(book_form, self).validate():
                 return False
         book = Book.query.filter_by(title = self.title.data)
-        author = Book.query.filter_by(author = self.author.date)
+        author = Book.query.filter_by(author = self.author.data)
         if book and author:
             msg = 'Book already exists'
             self.title.errors.append(msg)
