@@ -12,6 +12,7 @@ idna==2.10
 itsdangerous==2.0.1
 Jinja2==3.0.1
 MarkupSafe==2.0.1
+psycopg2==2.8.6
 pycodestyle==2.7.0
 requests==2.25.1
 SQLAlchemy==1.4.15
