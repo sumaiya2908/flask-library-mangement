@@ -2,8 +2,8 @@ from library import db
 from json import JSONEncoder
 class Member(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(length=30), nullable=False)
-    member_name = db.Column(db.String(length=30), nullable=False, unique=True)
+    name = db.Column(db.String(), nullable=False)
+    member_name = db.Column(db.String(), nullable=False, unique=True)
     phone_number = db.Column(db.Integer())
     to_pay = db.Column(db.Integer(), default=0)
     transactions = db.relationship('Transaction', backref='borrowed_member', lazy=True)
@@ -13,8 +13,8 @@ class Member(db.Model):
 
 class Book(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.String(length=50), nullable=False)
-    isbn = db.Column(db.String(length=15), nullable=False)
+    title = db.Column(db.String(), nullable=False)
+    isbn = db.Column(db.String(), nullable=False)
     author = db.Column(db.String(), nullable=False)
     stock = db.Column(db.Integer(), default=0)
     borrow_stock = db.Column(db.Integer(), default=0)
