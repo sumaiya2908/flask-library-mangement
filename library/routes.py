@@ -14,7 +14,7 @@ from sqlalchemy import and_, or_, desc
 
 
 # Renders Home Page
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/home')
 def home_page():
     return render_template('home.html', book_form = book_form(), member_form = member_form(), borrow_form = borrow_book_form(), return_form = return_book_form())
