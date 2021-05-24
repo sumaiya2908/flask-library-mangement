@@ -4,7 +4,7 @@ class Member(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(), nullable=False)
     member_name = db.Column(db.String(), nullable=False, unique=True)
-    phone_number = db.Column(db.Integer())
+    phone_number = db.Column(db.BigInteger())
     to_pay = db.Column(db.Integer(), default=0)
     transactions = db.relationship('Transaction', backref='borrowed_member', lazy=True)
 
