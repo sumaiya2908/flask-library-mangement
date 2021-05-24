@@ -51,7 +51,7 @@ def books_page():
 
 
 # deletes a book
-@app.route('/delete-book/<book_id>', methods=['POST'])
+@app.route('/delete-book/<book_id>', methods=['GET','POST'])
 def delete_book(book_id):
     try:
         # reads the requested book
@@ -67,7 +67,7 @@ def delete_book(book_id):
 
 
 # updates a book
-@app.route('/update-book/<book_id>', methods=['POST'])
+@app.route('/update-book/<book_id>', methods=['GET','POST'])
 def update_book(book_id):
     # reads requested book from db
     book = Book.query.filter_by(id=book_id).first()
@@ -97,7 +97,7 @@ def update_book(book_id):
 
 
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['GET','POST'])
 def search_book():
     query = request.form.get("query")
     books = Book.query.filter(or_(Book.title == query, Book.author == query)).all()
@@ -222,7 +222,7 @@ def transactions_page():
     return render_template('transactions/transactions.html', transactions=transaction, length=len(transaction), borrow_form = borrow_book_form(), return_form = return_book_form())
 
 
-@app.route('/borrow-book', methods=['POST'])
+@app.route('/borrow-book', methods=['GET','POST'])
 def borrow_book():
     member_requested = borrow_book_form().member_name.data
     book_requested = borrow_book_form().book_name.data
@@ -249,7 +249,7 @@ def borrow_book():
     return redirect(request.referrer)
 
 
-@app.route('/return-book', methods=['POST'])
+@app.route('/return-book', methods=['GET','POST'])
 def return_book():
     member_requested = return_book_form().member_name.data
     book_requested = return_book_form().book_name.data
@@ -280,12 +280,7 @@ def return_book():
     return redirect(url_for('transactions_page'))
 
 
-class Object:
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
-            
-@app.route('/reports') 
+@app.route('/reports', methods = ['GET','POST']) 
 def report_page():
   books = Book.query.all()
   members = Book.query.all()
