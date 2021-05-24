@@ -23,7 +23,7 @@ class member_form(FlaskForm):
    
     name = StringField(label='Name', validators=[Length(min=2, max=30), DataRequired()])
     member_name = StringField(label='Member Name',  validators=[Length(min=2, max=30), DataRequired()])
-    phone_number = IntegerField(label='Phone Number', validators=[DataRequired()])
+    phone_number = StringField(label='Phone Number', validators=[DataRequired()])
     submit = SubmitField(label='Submit')
 
 
