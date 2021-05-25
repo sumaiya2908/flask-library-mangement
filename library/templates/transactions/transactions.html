@@ -34,7 +34,7 @@
                     <tr>
                         <th scope="row" class="table-id">
                             {{ transaction.id }}</th>
-                        <td>{{ transaction.book_name}}</td>
+                        <td>{{ transaction.book_name[0:40]}}</td>
                         <td>{{ transaction.member_name }}</td>
                         <td>{{ transaction.type_of_transaction }}</td>
                         <td>{{ transaction.date }}</td>

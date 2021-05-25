@@ -23,7 +23,7 @@ header {
 .m {
   margin: 1rem 0 0 1rem;
   position: relative;
-  left: 75%;
+  left: 70%;
 }
 .action {
   width: 270px;
@@ -41,7 +41,12 @@ header {
   font-size: 2rem; 
   font-weight: 700;
 }
-
+.report{
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.2rem;
+  list-style: circle;
+}
 @media screen and (max-width: 600px) {
   .m {
       left: 25%;

@@ -5,58 +5,70 @@
 {% endblock %}
 
 {% block content %}
- 
-    
-        <canvas id="book-line-chart" width="600" height="200"></canvas>
-        <canvas id="member-line-chart" width="600" height="400"></canvas>
 
+    <div class="report">
+        <li class="report-data">Total Number of Members :
+            {{ members }}</li>
+        <li class="report-data">Total Number of Books :
+            {{ books }}</li>
+    </div>
 
+    <canvas id="book-line-chart" width="600" height="200"></canvas>
+    <canvas id="member-line-chart" width="600" height="200"></canvas>
 
 {% endblock %}
-    {% block script %}
-	<script>
 
-	labels = JSON.parse( {{labels | tojson}} )
-	data = JSON.parse({{ data | tojson }})
-	new Chart(document.getElementById("book-line-chart"),{
-		"type":"bar",
-		"data":
-			//using the labels here.
-			{"labels": labels, 
-           
-			"datasets":[{"label":"Books",
-      			
-			"data":	data, 
-        backgroundColor: [
-   
-      'rgba(75, 192, 192, 0.2)',
-  
-    ],
-    borderColor: [
+{% block script %}
 
-      'rgb(75, 192, 192)',
-
-    ],
-		
-			
-			borderWidth: 1},
-    {
-      label: "members",
-      data: data,
-      borderWidth: 1,
-      backgroundColor: [
-      'rgba(255, 99, 132, 0.2)'],
-      borderColor: [
-      'rgb(255, 99, 132)']
-
-    }
-    ]},
-		"options":{scales: {
-      y: {
-        beginAtZero: true
-      }
-    }}});
-    
+    <script>
+        book_title = JSON.parse({{ book_title | tojson}})
+        book_count = JSON.parse({{ book_count | tojson}})
+        member_paid = JSON.parse({{member_paid | tojson}})
+        members_name = JSON.parse({{members_name | tojson}})
+        new Chart(document.getElementById("book-line-chart"), {
+            "type": "bar",
+            "data": {
+                "labels": book_title,
+                "datasets": [
+                    {
+                        "label": "Top 10 popular Books",
+                        "data": book_count,
+                        backgroundColor: ['rgba(75, 192, 192, 0.2)'],
+                        borderColor: ['rgb(75, 192, 192)'],
+                        borderWidth: 1
+                    },
+                ]
+            },
+            "options": {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        new Chart(document.getElementById("member-line-chart"), {
+            "type": "bar",
+            "data": {
+                "labels": members_name,
+                "datasets": [
+                    {
+                        label: "Top 10 paying members",
+                        data: member_paid,
+                        borderWidth: 1,
+                        backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+                        borderColor: ['rgb(255, 99, 132)']
+                    }
+                ]
+            },
+            "options": {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     </script>
 
 {% endblock %}

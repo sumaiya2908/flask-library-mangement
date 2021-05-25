@@ -8,7 +8,7 @@ import json
 
 from datetime import date
 from flask import render_template, redirect, url_for, flash, request, jsonify
-from library.models import Book, Member, Transaction
+from library.models import Book, Member, Transaction, Book_borrowed
 from sqlalchemy import and_, or_, desc
 
 
@@ -34,14 +34,15 @@ def borrow_book():
         member.to_pay = member.to_pay + 30
         book.borrow_stock = book.borrow_stock - 1
         book.member_count = book.member_count + 1
-        borrow_book = Transaction(book = book.id,
-                                  book_name = book.title,
-                                  member = member.id,
+        borrow = Book_borrowed(book = book.id,
+                               member = member.id)
+        borrow_book = Transaction(book_name = book.title,
                                   member_name = member.member_name,
                                   type_of_transaction = "borrow",
                                   amount = 0,
                                   date= date.today())
         db.session.add(borrow_book)
+        db.session.add(borrow)
         db.session.commit()
         flash(f"Issued book", category='success')
     else:
