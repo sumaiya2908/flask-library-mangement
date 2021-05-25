@@ -8,20 +8,27 @@
             <div class="modal-body">
                 <form action='./return-book' method="POST">
 
-                    {{ return_form.hidden_tag() }}
-                    
-                    {{ return_form.book_name.label() }}
-                    {{ return_form.book_name(class="form-control", placeholder="Book Title")}}
+                        
 
-                    {{ return_form.member_name.label() }}
-                    {{ return_form.member_name(class="form-control", placeholder="Membername")}}
+                        <label class="form-label">Select Book:</label>
+                        <select name="book_name" class="custom-select form-control" id="book_name1">
+                            <option selected>Books to return</option>
+                            {% for book in books_to_return %}
+                                <option value={{book.id}}>{{ book.title }}</option>
+                                
+                            {% endfor %}
+                        </select>
+                        <label class="form-label">Select Member:</label>
+                        <select name="member_name" class="custom-select form-control" id="member_name1">
+                            <option selected>Members</option>
+                        </select>
 
-                    {{ return_form.paid.label() }}
-                    {{ return_form.paid(class="form-control", placeholder="Amount Paid")}}
+                        <input type="checkbox" name="paid" class="form-check-input" id="paidCheck">
+                        <label class="form-check-label" for="paidCheck">Paid</label>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        {{return_form.submit(class="btn btn-primary")}}
+                        <button type="submit" class="btn btn-primary">Return</button>
                     </div>
                 </form>
             </div>

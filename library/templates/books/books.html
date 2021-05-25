@@ -7,15 +7,12 @@
 {% block content %}
 
     {% include 'books/add_book_modal.html' %}
-    {% include 'transactions/borrow_book_modal.html' %}
     {% include 'transactions/return_book_modal.html' %}
 
     <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#bookModal">
         Create
     </button>
-    <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#borrowBookModal">
-        Borrow
-    </button>
+    
     <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#returnBookModal">
         Return
     </button>
@@ -39,6 +36,7 @@
                 {% for book in books %}
                     {% include 'books/delete_book_modal.html' %}
                     {% include 'books/update_book_modal.html' %}
+                    {% include 'transactions/borrow_book_modal.html' %}
                     <tr>
                         <th scope="row" class="table-id"> {{ book.id }}</th>
                         <td>{{ book.title }}</td>
@@ -52,6 +50,11 @@
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateBookModal-{{book.id}}">
                                 Update
                             </button>
+                            {% if book.borrow_stock > 0 %}
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#borrowBookModal-{{book.id}}">
+                                Borrow
+                            </button>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

@@ -16,7 +16,16 @@
   
             {{ member_form.member_name.label() }}
             {{ member_form.member_name(class="form-control", placeholder="Author",value= member.member_name) }}
-  
+            
+            <div class="input-group mb-3">
+              <select name="abc" class="custom-select form-control" id="abc">
+                <option selected>Member</option>
+                {%for member in members %}
+                 <option value={{member.member_name}}>{{member.name}}</option>
+                {% endfor %}
+                
+              </select>
+            </div> 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
