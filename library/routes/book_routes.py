@@ -22,7 +22,6 @@ def books_page():
     #checks member rent due is not greater than 500
     members_can_borrows = Member.query.filter(Member.to_pay < 500).all()
     books_to_return =  Book.query.filter(Book.borrower).all()
-    print(books_to_return)
     # if no validation error while creating book
     if form_book.validate_on_submit():  
         book_to_create = Book(title = book_form().title. data,
@@ -33,7 +32,7 @@ def books_page():
         db.session.add(book_to_create)
         db.session.commit()
         flash('Successfully create a book', category="success")
-        return redirect(url_for('books_page'))
+        return redirect(request.referrer)
 
     # if error occurs
     if form_book.errors != {}:
