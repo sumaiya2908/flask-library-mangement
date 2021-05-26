@@ -2,13 +2,18 @@
 ## A flask library management system
 
 ![home](/screenshots/Screenshot%20(128).png)
-stacks used
+## Stacks used
 
-- Flask(python framework)
-- SQLAlchemy(postgreSQL)
 - HTML
 - CSS
-- 
+- JavaScript
+- Bootstarp
+- Flask(python framework)
+- SQLAlchemy(postgreSQL)
+- Flask forms 
+- ChartJS
+
+
 
 ## Features
 
