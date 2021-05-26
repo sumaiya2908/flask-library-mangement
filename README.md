@@ -12,12 +12,13 @@ stacks used
 
 ## Features
 
-- [Create, Upadate , Read and Delete Books and Members](#crud-operation)
-- Import books from Frappe API
-- Issue a book to a member
-- Return a book from a member
-- Manage Transactions
-- See reports of top 10 popular books and most paying customers
+- [Create, Upadate , Read and Delete Books and Members](#crud-operations)
+- [Import books from Frappe API](#import-books-from-frappe-api)
+- [Issue a book to a member](#issue-a-book)
+- [Return a book from a member](#return-a-book)
+- [Manage Transactions](#transaction-records)
+- [Search book or author](#search-books-and-authors)
+- [See reports of top 10 popular books and most paying customers](#reports)
 
 ***
 ## CRUD operations
@@ -27,7 +28,7 @@ stacks used
 
 ![create](/screenshots/Screenshot%20(130).png)
 ***
-## Import books from frappe API
+## Import books from Frappe API
 
 ### Import books by title
 ![import](/screenshots/Screenshot%20(131).png)
