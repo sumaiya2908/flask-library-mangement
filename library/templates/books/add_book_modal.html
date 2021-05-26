@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-left">
-                <form method="POST">
+                <form action="/books" method="POST">
                     <!-- Flask form for creating a book -->
                     {{ book_form.hidden_tag() }}
 
