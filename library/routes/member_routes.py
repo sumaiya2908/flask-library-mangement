@@ -5,7 +5,7 @@ from library import app, db
 # external imports 
 import requests
 
-from flask import render_template, redirect, url_for, flash, reques
+from flask import render_template, redirect, url_for, flash, request
 from library.models import Book, Member
 
 
