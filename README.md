@@ -1,5 +1,6 @@
 # Overview
 ## A flask library management system
+### [Deployed on heroku](https://flask-library-management.herokuapp.com/)
 
 ![home](/screenshots/Screenshot%20(128).png)
 ## Stacks used
@@ -14,7 +15,7 @@
 - ChartJS
 
 
-
+## [Installation](#installation)
 ## Features
 
 - [Create, Upadate , Read and Delete Books and Members](#crud-operations)
@@ -25,6 +26,27 @@
 - [Search book or author](#search-books-and-authors)
 - [See reports of top 10 popular books and most paying customers](#reports)
 
+***
+## Installation
+- Run the command to cole the repository
+```sh
+  git clone https://github.com/sumaiya119/flask-library-mangement.git
+```
+- Install all requirements with
+```sh
+pip install -r requirements.txt
+```
+- for creating a local DB
+```sh
+python
+>>from library import db
+>>db.create_all()
+```
+- Set your secret key in /library/__init__.py file
+- run commad to start the server
+```sh
+flask run
+```
 ***
 ## CRUD operations
 
