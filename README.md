@@ -37,7 +37,7 @@
 cd flask-library-management
 pip install -r requirements.txt
 ```
-- Set your secret key in /library//\_\_init\_\_.py file
+- Set your secret key in /library/\_\_init\_\_.py file
 - for creating a local DB
 ```sh
 python
