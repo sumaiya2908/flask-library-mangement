@@ -29,7 +29,7 @@ def members_page():
         db.session.commit()
 
         flash('Successfully create a member', category="success")
-        return redirect(url_for('members_page'))
+        return redirect(request.referrer)
     
     # if validation error occured
     if form_member.errors != {}: # If there are not errors from the validations
