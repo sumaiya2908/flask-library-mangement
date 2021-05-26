@@ -1,35 +1,37 @@
 # internal imports
-from library.forms import book_form, member_form
 from library import app, db
 
 # external imports 
 import requests
-import json
 
 from datetime import date
-from flask import render_template, redirect, url_for, flash, request, jsonify
+from flask import render_template, redirect, url_for, flash, request
 from library.models import Book, Member, Transaction, Book_borrowed
-from sqlalchemy import and_, or_, desc
 
 
 # Renders transaction page
 @app.route('/transactions')
 def transactions_page():
+    # reads all transactions
     transaction = Transaction.query.order_by('id').all()
     books_to_borrow = Book.query.filter(Book.borrow_stock > 0).all()
     members_can_borrows = Member.query.filter(Member.to_pay < 500).all()
     books_to_return =  Book.query.filter(Book.borrower).all()
-    return render_template('transactions/transactions.html', transactions=transaction, length=len(transaction), books_to_borrow = books_to_borrow, members_can_borrow = members_can_borrows, books_to_return = books_to_return)
-
+    return render_template('transactions/transactions.html', 
+                            transactions = transaction, length=len(transaction), 
+                            books_to_borrow = books_to_borrow, 
+                            members_can_borrow = members_can_borrows, 
+                            books_to_return = books_to_return)
 
 
 @app.route('/borrow-book', methods=['GET','POST'])
 def borrow_book():
-    
+    # reads the form values
     member_requested = request.form.get("member_name")
     book_requested = request.form.get("book_name")
     member = Member.query.get(int(member_requested))
     book = Book.query.get(int(book_requested))
+
     if(book and member):
         member.to_pay = member.to_pay + 30
         book.borrow_stock = book.borrow_stock - 1
@@ -45,21 +47,26 @@ def borrow_book():
         db.session.add(borrow)
         db.session.commit()
         flash(f"Issued book", category='success')
+
     else:
         flash(f'Enter the Value', category = 'danger')
+
     return redirect(request.referrer)
 
 
 @app.route('/return-book', methods=['GET','POST'])
 def return_book():
+    # reads form values
     member_requested = request.form.get("member_name")
     book_requested = request.form.get("book_name")
     Ispaid = request.form.get("paid")
     paid = 0
     member = Member.query.get(member_requested)
     book = Book.query.get(book_requested)
+
     if(Ispaid == 'on'):
         paid = 30
+
     if(member and book):
         member.to_pay = member.to_pay - paid
         member.total_paid = member.total_paid + paid

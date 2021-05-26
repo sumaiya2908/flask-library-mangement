@@ -47,14 +47,17 @@
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{book.id}}">
                                 Delete
                             </button>  
+
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateBookModal-{{book.id}}">
                                 Update
                             </button>
+
                             {% if book.borrow_stock > 0 %}
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#borrowBookModal-{{book.id}}">
                                 Borrow
                             </button>
                             {% endif %}
+                            
                         </td>
                     </tr>
                 {% endfor %}

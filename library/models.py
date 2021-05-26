@@ -2,6 +2,7 @@ from library import db
 
 
 class Member(db.Model):
+
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(), nullable=False)
     member_name = db.Column(db.String(), nullable=False, unique=True)
@@ -12,6 +13,7 @@ class Member(db.Model):
 
 
 class Book(db.Model):
+
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(), nullable=False)
     isbn = db.Column(db.String(), nullable=False)
@@ -24,6 +26,7 @@ class Book(db.Model):
 
 class Book_borrowed(db.Model):
     __tablename__ = 'book_borrow'
+
     id = db.Column(db.Integer(), primary_key=True)
     member = db.Column(db.Integer(), db.ForeignKey('member.id'), nullable = True)
     book = db.Column(db.Integer(), db.ForeignKey('book.id'), nullable = True)

@@ -13,13 +13,14 @@
     <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#memberModal">
         Create
     </button>
+
     <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#borrowBookModal">
         Borrow
     </button>
+
     <button type="button" class="btn btn-dark m" data-bs-toggle="modal" data-bs-target="#returnBookModal">
         Return
     </button>
-
 
     {% if length > 0 %}
         <table class="table">
@@ -47,9 +48,11 @@
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{member.id}}">
                                 Delete
                             </button>
+
                             <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#updateMemberModal-{{member.id}}">
                                 Update
                             </button>
+                            
                         </td>
                     </tr>
                 {% endfor %}

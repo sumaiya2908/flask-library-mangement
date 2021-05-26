@@ -1,6 +1,8 @@
 let book_select = document.getElementById('book_name1');
 let member_select = document.getElementById('member_name1');
 
+
+// fetches the member list for returning the book
 book_select.addEventListener('change',(e) => {
     book_id = book_select.value
 
