@@ -79,7 +79,7 @@ def return_book():
                                   date= date.today())
         db.session.add(return_book)
         db.session.commit()
-        flash(f"Returned book from {member_requested}", category='success')
+        flash(f"Returned book from {member.member_name}", category='success')
     
     else:
         flash(f'error in returning the book', category = 'danger')
